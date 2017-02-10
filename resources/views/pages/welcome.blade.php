@@ -20,27 +20,17 @@
 <div class="container home-pages bg-3 text-center">    
   <h3 class="margin">Why am I?</h3><br>
   <div class="row">
-    <div class="col-sm-4">
-        <img src="http://www.w3schools.com/bootstrap/birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-        <h4>Hello blog</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        <button type="button" class="btn btn-info">Read More</button>
-    </div>
-    <div class="col-sm-4">
-        <img src="http://www.w3schools.com/bootstrap/birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-        <a href="#"><h4>Hello blog</h4></a>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        <button type="button" class="btn btn-info">Read More</button>
-    </div>
-    <div class="col-sm-4"> 
-        <img src="http://www.w3schools.com/bootstrap/birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-        <h4>Hello blog</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        <button type="button" class="btn btn-info">Read More</button>
-    </div>
+    @foreach($posts as $post)
+      <div class="post col-sm-4">
+        <img src="{{ $post->image }}" class="img-responsive margin" style="width:100%" alt="Image">
+        <h3><a href="{{url('blog/'.$post->slug)}}" class="">{{$post->title}}</a></h3>
+        <p>{{substr($post->body, 0, 250)}}{{strlen($post->body)>250?"....":""}}</p>
+        <a href="{{url('blog/'.$post->slug)}}" class="btn btn-info">Read More</a>
+      </div>
+    @endforeach
   </div>
   <div class="home-pages text-center">
-    <button type="button" class="btn btn-primary">Read Entire Blog</button>
+    <a href="/blog" type="button" class="btn btn-primary">Read Entire Blog</a>
 </div>
 </div>     
 @endsection

@@ -10,10 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('blog/{slug}', ['as'=>'blog.single', 'uses' => 'BlogController@getSingle'])->where('slug', '[\w\d\-\_]+');
+Route::get('/blog', ['uses' => 'BlogController@getArchieve', 'as' => 'blog.index']);
 Route::get('/', 'PagesController@getIndex');
 Route::get('/about', 'PagesController@getAbout');
 Route::get('/contact', 'PagesController@getContact');
-Route::get('/blog', 'PagesController@getBlog');
+Route::post('/contact', 'PagesController@postContact');
+//Route::get('/blog', 'PagesController@getBlog');
 Route::resource('posts','PostController');
 
+
+Auth::routes();
+
+Route::get('/dashboard', 'HomeController@index');

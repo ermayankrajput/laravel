@@ -11,10 +11,34 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="/">HOME</a></li>
-	        <li><a href="/posts">POSTS</a></li>
-	        <li><a href="/about">ABOUT</a></li>
-	        <li><a href="/contact">CONTACT</a></li>
+	        <li><a class="{{Request::is('/')?"active":""}}" href="/">HOME</a></li>
+	        <li><a class="{{Request::is('/blog')?"active":""}}" href="/blog">BLOG</a></li>
+	        <li><a class="{{Request::is('/about')?"active":""}}" href="/about">ABOUT</a></li>
+	        <li><a class="{{Request::is('/contact')?"active":""}}" href="/contact">CONTACT</a></li>
+	        @if (Auth::guest())
+                <li><a href="{{ url('/login') }}">LOGIN</a></li>
+            @else
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        ACCOUNT <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                    <li><a href="/dashboard">DASHBOARD</a></li>
+                        <li>
+                            <a href="{{ url('/logout') }}"
+                                onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();">
+                                signout
+                            </a>
+
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            @endif
 	      </ul>
 	    </div>
 	  </div>
